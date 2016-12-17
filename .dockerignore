@@ -1,0 +1,5 @@
+/log/*
+!/log/.keep
+/tmp
+/config/secrets.yml
+/config/local_env.yml
