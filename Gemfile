@@ -6,10 +6,9 @@ gem 'rails', '4.2.5'
 gem 'rails-api', '0.4.0'
 gem 'puma', '3.6.2'
 # gem 'devise_token_auth', '0.1.39'
-
 gem 'spring', :group => :development
-
 gem 'pg', '0.19.0'
+gem 'responders', '2.3.0'
 
 # gem 'rails_admin', '0.6.8'
 # gem 'devise', '3.5.1'
