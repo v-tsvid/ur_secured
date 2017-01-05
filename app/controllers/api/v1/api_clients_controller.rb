@@ -1,27 +1,36 @@
 class Api::V1::ApiClientsController < BaseApiController
   respond_to :json
+  skip_before_filter :restrict_access, only: :create
 
-  alias_method :create, :get_token
-  
+  # pass strong params and implement form for saving client and metric objects
+    
   def create
-    # pass strong params and implement form for saving client and metric objects
-    render save_client(ApiClient.new)
+    render create_client(ApiClient.new)
   end
 
-  def index
+  alias_method :get_token, :create
+
+  def update_expired_token
+    render update_client(@api_client)
+  end
+
+  def analyze_url
   end
 
   private
+    
+    {'create': [201, 422], 'update': [200, 400]}.each do |key, val|
+      define_method "hash_client_#{key}d" do |client|
+        { json: { token: client.access_token }, status: val[0] }
+      end
 
-    def save_client(client)
-      client.save ? hash_client_created(client) : hash_failed_to_create(client)
-    end
+      define_method "hash_failed_to_#{key}" do |client|
+        { json: { errors: client.errors }, status: val[1] }
+      end
 
-    def hash_client_created(client)
-      { token: client.access_token, status: 201 }
-    end
-
-    def hash_failed_to_create(client)
-      { json: { errors: client.errors }, status: 422 }
+      define_method "#{key}_client" do |client|
+        method_to_call = client.save ? "hash_client_#{key}d" : "hash_failed_to_#{key}"
+        self.send(method_to_call.to_sym, client)
+      end
     end
 end

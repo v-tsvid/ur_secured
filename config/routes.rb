@@ -4,9 +4,8 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json }  do
     scope module: :v1,
               constraints: ApiConstraints.new(version: 1, default: true) do
-      # We are going to list our resources here
-      root to: 'api_clients#index'
-      resources :api_clients, only: [:create, :index]
+      resources :api_clients, only: [:create]
+      put 'update_expired_token', to: "api_clients#update_expired_token"
     end
   end
 end
