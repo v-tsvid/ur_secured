@@ -11,3 +11,5 @@ ADD Gemfile /ur_secured/Gemfile
 ADD Gemfile.lock /ur_secured/Gemfile.lock
 RUN bundle install
 ADD . /ur_secured
+
+USER 1000

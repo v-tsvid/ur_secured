@@ -1,0 +1,2 @@
+class Javascript < Content
+end

@@ -16,23 +16,5 @@ FactoryGirl.define do
         create_list(:url, rand(1..100), api_clients: ev.ary.push(client).uniq)
       end
     end
-
-    # factory :book_with_ratings do
-    #   transient do
-    #     ratings_count { rand(1..10) }
-    #   end
-    #   after(:create) do |book, evaluator|
-    #     create_list(:rating, evaluator.ratings_count, book: book)
-    #   end
-    # end
-
-    # factory :book_with_categories do
-    #   transient do
-    #     ary { array_of(Book) }
-    #   end
-    #   after(:create) do |book, ev|
-    #     create_list(:category, rand(1..3), books: ev.ary.push(book).uniq)
-    #   end
-    # end
   end
 end

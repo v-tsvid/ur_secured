@@ -17,8 +17,6 @@ class ApiClient < ActiveRecord::Base
     end
 
     def generate_token!
-      # return false unless self.expires_at && self.expires_at <= DateTime.now
-      
       self.access_token = loop do
         token = SecureRandom.hex
         break token unless self.class.exists?(access_token: token)

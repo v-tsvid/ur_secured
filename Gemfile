@@ -15,8 +15,13 @@ gem 'devise', '4.2.0'
 # gem 'rspec-activemodel-mocks', '1.0.2'
 
 # gem "rubycritic", '2.9.1', :require => false  
+
+gem 'rainbows', '5.0.0'
+gem 'em-http-request', '1.1.5'
+gem 'faraday', '0.10.1'
   
 group :development, :test do
+  gem 'byebug', '9.0.6'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   # gem 'capybara', '2.4.4'
   # gem 'capybara-webkit', '1.6.0'

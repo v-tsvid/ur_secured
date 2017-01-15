@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170105210204) do
+ActiveRecord::Schema.define(version: 20170111174018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,17 @@ ActiveRecord::Schema.define(version: 20170105210204) do
 
   add_index "api_clients_urls", ["api_client_id"], name: "index_api_clients_urls_on_api_client_id", using: :btree
   add_index "api_clients_urls", ["url_id"], name: "index_api_clients_urls_on_url_id", using: :btree
+
+  create_table "contents", force: :cascade do |t|
+    t.string   "type"
+    t.text     "code_md5"
+    t.boolean  "safe?"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "original_length"
+  end
+
+  add_index "contents", ["code_md5", "original_length", "type"], name: "index_contents_on_code_md5_and_original_length_and_type", unique: true, using: :btree
 
   create_table "metrics", force: :cascade do |t|
     t.integer  "api_client_id"
