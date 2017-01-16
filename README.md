@@ -1,3 +1,6 @@
+[![Code Climate](https://codeclimate.com/github/v-tsvid/ur_secured/badges/gpa.svg)](https://codeclimate.com/github/v-tsvid/ur_secured)
+
+
 == README
 
 This README would normally document whatever steps are necessary to get the

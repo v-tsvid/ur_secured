@@ -9,3 +9,5 @@ web:
     - db
   volumes:
     - .:/ur_secured
+  stdin_open: true
+  tty: true
