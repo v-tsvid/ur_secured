@@ -41,7 +41,6 @@ exclude_paths:
 - "db/"
 - "spec/"
 - "/log/*"
-- !/log/.keep
 - "/config/secrets.yml"
 - "/config/local_env.yml"
 - "/.bundle"
