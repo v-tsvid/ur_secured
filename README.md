@@ -20,7 +20,7 @@ First you should set up connection with the service. At the moment URI is `http:
 
 To use UR_SECURED you should request your unique key passing your client metrics (browser name)
 
-* ** URL **
+** * URL **
 
 `/api/get_token`
 
