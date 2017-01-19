@@ -20,7 +20,7 @@ First you should set up connection with the service. At the moment URI is `http:
 
 To use UR_SECURED you should request your unique key passing your client metrics (browser name)
 
-__ * URL __
+* URL
 
 `/api/get_token`
 
@@ -28,10 +28,10 @@ or the RESTful one
 
 `/api/api_clients/`
 
-* ** Method **
+* Method
 `POST`
 
-* ** Data params **
+* Data params
 
 ```
   {
@@ -41,19 +41,19 @@ or the RESTful one
   }
 ```
 
-* ** Success response **
+* Success response
 
 Code: 201
 
 Content: `{ token: [string] }`
 
-* ** Error response **
+* Error response
 
 Code: 422
 
 Content: `{ errors: 'Some validation errors' }`
 
-* ** cURL example **
+* cURL example
 
 `curl -F "metric[browser]=Firefox" http://localhost:9292/api/get_token`
 
@@ -63,7 +63,7 @@ Content: `{ errors: 'Some validation errors' }`
 
 Your unique key may become expired so you should update it (request the brand new key)
 
-* ** URL **
+* URL
 
 `/api/update_expired_token/:id`
 
@@ -71,28 +71,28 @@ or the RESTful one
 
 `/api/api_clients/:id`
 
-* ** Method **
+* Method
 `PUT`
 
-* ** URL params **
+* URL params
 
 Required: `id : [string]` 
 
 `id` is your old expired key
 
-* ** Success response **
+* Success response
 
 Code: 200
 
 Content: `{ token: [string] }`
 
-* ** Error response **
+* Error response
 
 Code: 422
 
 Content: `{ errors: 'Some errors' }`
 
-* ** cURL example **
+* cURL example
 
 `curl -X PUT http://localhost:9292/api/update_expired_token/a8704ccdb5f0be9fc98684a3d11e5897`
 
@@ -102,7 +102,7 @@ Content: `{ errors: 'Some errors' }`
 
 You can see your statistics like your visited URLs, number of safe and danger URLs you've visited
 
-* ** URL **
+* URL
 
 `/api/client_stats/:id`
 
@@ -110,16 +110,16 @@ or the RESTful one
 
 `/api/api_clients/:id`
 
-* ** Method **
+* Method
 `GET`
 
-* ** URL params **
+* URL params
 
 Required: `id : [string]` 
 
 `id` is your unique key
 
-* ** Success response **
+* Success response
 
 Code: 200
 
@@ -133,7 +133,7 @@ Content:
 }
 ```
 
-* ** cURL example **
+* cURL example
 
 `curl -X GET http://localhost:9292/api/clients_stats/a8704ccdb5f0be9fc98684a3d11e5897e`
 
@@ -143,20 +143,20 @@ Content:
 
 You can analyze the source code of your web-page (including javascript code) and find out if the web-page has malicious scripts or not
 
-* ** URL **
+* URL
 
 `/api/analyze_content/:id`
 
-* ** Method **
+* Method
 `POST`
 
-* ** URL params **
+* URL params
 
 Required: `id : [string]` 
 
 `id` is your unique key
 
-* ** Data params **
+* Data params
 
 ```
   {
@@ -168,23 +168,23 @@ Required: `id : [string]`
   }
 ```
 
-* ** Success response **
+* Success response
 
 Code: 200
 
 Content: `{ answer: [boolean] }`
 
-* ** Error response **
+* Error response
 
 Code: 422
 
 Content: `{ errors: 'Some errors' }`
 
-* ** cURL example **
+* cURL example
 
 `curl -F "html=XXX&javascripts[]=YYY&javascripts[]=ZZZ&url=www.example.url" http://localhost:9292/api/analyze_code`
 
-* ** IMPORTANT **
+* IMPORTANT
 You have to set up your client app to send the source code compressed via Zlib and encoded via Base64. That manipulations are necessary to save your internet traffic. For example in Ruby the code needed to prepare the web-page source code to sending may look like following: 
 
 ```
