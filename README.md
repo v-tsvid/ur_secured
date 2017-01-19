@@ -185,6 +185,7 @@ Content: `{ errors: 'Some errors' }`
 `curl -F "html=XXX&javascripts[]=YYY&javascripts[]=ZZZ&url=www.example.url" http://localhost:9292/api/analyze_code`
 
 * IMPORTANT
+
 You have to set up your client app to send the source code compressed via Zlib and encoded via Base64. That manipulations are necessary to save your internet traffic. For example in Ruby the code needed to prepare the web-page source code to sending may look like following: 
 
 ```
