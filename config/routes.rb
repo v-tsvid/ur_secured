@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       put  'update_expired_token/:id', to: "api_clients#update"
       get  'client_stats/:id',         to: "api_clients#show"
       post 'analyze_content',          to: "analyses#create"
+      get  'check_analysis/:id',       to: "analyses#show"
     end
   end
 end

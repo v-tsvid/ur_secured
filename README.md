@@ -141,20 +141,23 @@ Content:
 
 ###5. Analyze your webpage
 
-You can analyze the source code of your web-page (including javascript code) and find out if the web-page has malicious scripts or not
+You can analyze the source code of your web-page (including javascript code) and find out if the web-page has malicious scripts or not. To do that your client has to provide url and the source code as the request params, and your unique key as Authorization header. As a response you will receive the uid of your analysis. You'll be able to check the result of your analysis right after that.
 
 * URL
 
 `/api/analyze_content/:id`
 
+or the RESTful one
+
+`/api/analyses/`
+
+
 * Method
 `POST`
 
-* URL params
+* Headers
 
-Required: `id : [string]` 
-
-`id` is your unique key
+Required: `Authorization : [string]`
 
 * Data params
 
@@ -172,7 +175,7 @@ Required: `id : [string]`
 
 Code: 200
 
-Content: `{ answer: [boolean] }`
+Content: `{ analysis: [string] }`
 
 * Error response
 
@@ -182,7 +185,7 @@ Content: `{ errors: 'Some errors' }`
 
 * cURL example
 
-`curl -F "html=XXX&javascripts[]=YYY&javascripts[]=ZZZ&url=www.example.url" http://localhost:9292/api/analyze_code`
+`curl -F "html=XXX&javascripts[]=YYY&javascripts[]=ZZZ&url=www.example.url" -H "Authorization: foobar" http://localhost:9292/api/analyze_code`
 
 * IMPORTANT
 
@@ -196,3 +199,46 @@ code = "XXX"
 compressed = Zlib::Deflate.deflate(code)
 code_to_send = Base64.encode64(compressed)
 ```
+
+
+
+###6. Check out your analysis result
+
+After you perform your analysis you can check its result. To do that your client has to provide your analysis' uid, and your unique key as Authorization header. As a response you'll receive `true` or `false` value telling you that the url you've analyzed has or has no malicious scripts. `nil` value will tell you that your analysis is in progress. 
+
+* URL
+
+`/api/check_analysis/:id`
+
+or the RESTful one
+
+`/api/analyses/:id`
+
+* Method
+`GET`
+
+* Headers
+
+Required: `Authorization : [string]`
+
+* URL params
+
+Required: `id : [string]` 
+
+`id` is your analysis uid
+
+* Success response
+
+Code: 200
+
+Content: `{ result: [boolean] }`
+
+* Error response
+
+Code: 404
+
+Content: `{ errors: 'Not found' }`
+
+* cURL example
+
+`curl -X GET -H "Authorization: foobar" http://localhost:9292/api/clients_stats/a8704ccdb5f0be9fc98684a3d11e5897e`
