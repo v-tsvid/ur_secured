@@ -1,4 +1,6 @@
 class Content < ActiveRecord::Base
+  has_and_belongs_to_many :analyses
+  
   validates :code_md5, uniqueness: { scope: [:original_length, :type] }
   
   scope :by_md5_and_length, -> (code_md5, original_length) {
