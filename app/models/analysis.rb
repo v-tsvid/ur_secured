@@ -5,7 +5,7 @@ class Analysis < ActiveRecord::Base
   belongs_to :url
   has_and_belongs_to_many :contents
 
-  before_save :generate_uid!
+  before_create :generate_uid!
 
   private 
 

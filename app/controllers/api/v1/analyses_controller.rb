@@ -18,7 +18,7 @@ class Api::V1::AnalysesController < BaseApiController
     def json_to_render_on_show
       if @analysis
         Api::V1::ResultUpdatingService.new(@analysis).call
-        { json: { answer: @analysis.result }, status: 200 }
+        { json: { result: @analysis.result }, status: 200 }
       else
         { json: { errors: 'Not found'}, status: 404 }
       end
@@ -27,7 +27,7 @@ class Api::V1::AnalysesController < BaseApiController
     def save_analyze_hash(url)
       if @analysis.id
         Url.find_by(url: url).api_clients << current_client
-        { json: { answer: @analysis.uid }, status: 200 }
+        { json: { analysis: @analysis.uid }, status: 200 }
       else
         { json: { errors: @analysis.errors }, status: 422 }
       end

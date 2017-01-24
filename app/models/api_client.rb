@@ -6,7 +6,7 @@ class ApiClient < ActiveRecord::Base
 
   validate :expires_at_cannot_be_in_the_past
 
-  before_save :generate_token!
+  before_create :generate_token!
   before_save :token_expires_at!
   
   before_validation :counts_to_default
