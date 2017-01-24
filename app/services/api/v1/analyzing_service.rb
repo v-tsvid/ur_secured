@@ -10,7 +10,7 @@ class Api::V1::AnalyzingService
   private
 
     def analyze
-      sleep 5
+      sleep 60
       return @code.length.even? ? true : false
     end
 end

@@ -1,14 +1,11 @@
 class AnalyzingWorker
   include Sidekiq::Worker
 
-  def perform(code)
-    Api::V1::AnalyzingService.new(code).call
-    # conn = Faraday.new "https://ur-secured-analyzer.herokuapp.com" 
-          
-    # answer = conn.post do |req|
-    #   req.url '/api/analyze/'
-    #   req.headers['Content-Type'] = 'application/json'
-    #   req.body = "{ \"code\": #{code} }"
-    # end
+  def perform(temp_content_id)
+    temp_content = TempContent.find_by_id(temp_content_id)
+    code = temp_content.code
+    result = Api::V1::AnalyzingService.new('code').call
+    content = Content.find_by_id(temp_content.content_id)
+    content.update(safe?: result)
   end
 end

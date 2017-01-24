@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170123172111) do
+ActiveRecord::Schema.define(version: 20170124194956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,10 +21,13 @@ ActiveRecord::Schema.define(version: 20170123172111) do
     t.integer  "api_client_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "url_id"
+    t.boolean  "result"
   end
 
   add_index "analyses", ["api_client_id"], name: "index_analyses_on_api_client_id", using: :btree
   add_index "analyses", ["uid"], name: "index_analyses_on_uid", using: :btree
+  add_index "analyses", ["url_id"], name: "index_analyses_on_url_id", using: :btree
 
   create_table "analyses_contents", id: false, force: :cascade do |t|
     t.integer "analysis_id"
@@ -80,7 +83,10 @@ ActiveRecord::Schema.define(version: 20170123172111) do
     t.string   "content_type"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "content_id"
   end
+
+  add_index "temp_contents", ["content_id"], name: "index_temp_contents_on_content_id", using: :btree
 
   create_table "urls", force: :cascade do |t|
     t.string   "url"
@@ -90,5 +96,7 @@ ActiveRecord::Schema.define(version: 20170123172111) do
   end
 
   add_foreign_key "analyses", "api_clients"
+  add_foreign_key "analyses", "urls"
   add_foreign_key "metrics", "api_clients"
+  add_foreign_key "temp_contents", "contents"
 end
