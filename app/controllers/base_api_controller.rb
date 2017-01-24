@@ -3,9 +3,10 @@ class BaseApiController < ApplicationController
   before_filter :restrict_if_expired!
 
   def current_client
+    token = request.headers['HTTP_AUTHORIZATION'] || params['id']
     ApiClient.find_each do |client|
       @current_client ||= client if Devise.secure_compare(
-        client.access_token, params[:id])
+        client.access_token, token)
     end
     @current_client
   end

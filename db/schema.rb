@@ -11,10 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170111174018) do
+ActiveRecord::Schema.define(version: 20170123172111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "analyses", force: :cascade do |t|
+    t.string   "uid"
+    t.integer  "api_client_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "analyses", ["api_client_id"], name: "index_analyses_on_api_client_id", using: :btree
+  add_index "analyses", ["uid"], name: "index_analyses_on_uid", using: :btree
+
+  create_table "analyses_contents", id: false, force: :cascade do |t|
+    t.integer "analysis_id"
+    t.integer "content_id"
+  end
+
+  add_index "analyses_contents", ["analysis_id"], name: "index_analyses_contents_on_analysis_id", using: :btree
+  add_index "analyses_contents", ["content_id"], name: "index_analyses_contents_on_content_id", using: :btree
 
   create_table "api_clients", force: :cascade do |t|
     t.string   "access_token"
@@ -55,6 +73,15 @@ ActiveRecord::Schema.define(version: 20170111174018) do
 
   add_index "metrics", ["api_client_id"], name: "index_metrics_on_api_client_id", using: :btree
 
+  create_table "temp_contents", force: :cascade do |t|
+    t.text     "code"
+    t.string   "code_md5"
+    t.integer  "original_length"
+    t.string   "content_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "urls", force: :cascade do |t|
     t.string   "url"
     t.boolean  "safe?"
@@ -62,5 +89,6 @@ ActiveRecord::Schema.define(version: 20170111174018) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "analyses", "api_clients"
   add_foreign_key "metrics", "api_clients"
 end
